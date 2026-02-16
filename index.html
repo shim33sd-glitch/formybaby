@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لحظاتنا الأجمل ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* استخدم min-height عشان المحتوى ما يتقصش */
+            background: url('background_photo.jpg') no-repeat center center fixed; /* صورتكم هنا */
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden; /* عشان ما يظهرش شريط تمرير أفقي */
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
+
+        /* طبقة شفافة فوق الصورة عشان الكلام والفيديو يبقوا واضحين */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* طبقة سودا شفافة */
+            z-index: 1;
+        }
+
+        .container {
+            position: relative; /* عشان يبقى فوق الطبقة الشفافة */
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.2); /* خلفية شفافة للمحتوى */
+            backdrop-filter: blur(10px); /* تأثير ضبابي على الخلفية */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto; /* لضمان وجود مسافة حول الكونتينر */
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #ffe6e6; /* لون أبيض مائل للوردي */
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* نسبة أبعاد 16:9 للفيديو */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-caption {
+            color: #f7f7f7; /* لون رمادي فاتح للكلام اللي تحت الفيديو */
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .message {
+            color: #ffcccc; /* لون وردي فاتح للرسالة الرئيسية */
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 30px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+        }
+
+        /* قلوب متحركة للخلفية */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            animation: moveHearts 8s linear infinite;
+            top: -10%;
+            pointer-events: none;
+            z-index: 0; /* أقل من ال container */
+        }
+
+        @keyframes moveHearts {
+            to { transform: translateY(110vh) rotate(360deg) scale(0.8); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>لحظاتنا معًا، للأبد ❤️</h1>
+        
+        <div class="video-wrapper">
+            <video controls autoplay loop muted playsinline>
+                <source src="romantic_video.mp4" type="video/mp4">
+                متصفحك لا يدعم تشغيل الفيديوهات.
+            </video>
+        </div>
+        
+        <p class="video-caption">في كل ثانية بتمر معاك، بحس إن الحياة أجمل. الفيديو ده بيفكرني بجمال أيامنا.</p>
+        
+        <p class="message">حبيبي، أنت كل حياتي وسندي. كل يوم معاك عيد جديد. بحبك!</p>
+    </div>
+
+    <script>
+        // قلوب متحركة في الخلفية
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+            heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 8000);
+        }
+        setInterval(createHeart, 300);
+
+        // تشغيل الفيديو بشكل تلقائي بمجرد تحميل الصفحة
+        window.onload = function() {
+            var video = document.querySelector('.video-wrapper video');
+            video.play().catch(error => {
+                // لو فيه مشكلة في التشغيل التلقائي (بعض المتصفحات بتحظر الصوت)
+                console.log("Auto-play blocked or error: ", error);
+            });
+        };
+    </script>
+</body>
+</html>
